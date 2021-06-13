@@ -2,12 +2,12 @@
 
 @section('content')
     
-    <h3 align="center"> Жұмыс орындарының кодтары </h3>
+    <h3 align="center"> Үздік түлектердің жұмысқа орналасуы </h3>
     <br/>
     @auth
     <div class="flex justify-center">
         {{-- <div class="form-group">
-            <form method="GET" action="{{ route('job.list') }}">
+            <form method="GET" action="{{ route('best.list') }}">
                 {{ csrf_field() }}
                 <label>Мамандық</label>
                 <select class="form-select" name="speciality" id="speciality">
@@ -29,29 +29,45 @@
                 <input type="search" id="search" onkeyup="search()" class="form-control rounded" placeholder="Іздеу" aria-label="Search"
                   aria-describedby="search-addon" />
             </div>
+            <div class="table-responsive">
+
                 <table id="subj_table" class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th id="id" scope="col">#</th>
-                            <th scope="col">Жұмыс орнының коды</th>
-                            <th scope="col">Жұмыс орнының атауы</th>
-                            <th scope="col">Түлектің аты-жөн</th>
-                            <th scope="col">Тобы</th>
+                            <th scope="col">Түлектің  аты-жөні</th>
+                            <th scope="col">Мамандығының шифры</th>
+                            <th scope="col">Оқу бітірген жылы</th>
+                            <th scope="col">Жұмысқа орналасуы (қандай мекемеге)</th>
+                            <th scope="col">Жеке кәсібін ашқандар</th>
+                            <th scope="col">Жоғары оқу орнында оқитындар </th>
+                            <th scope="col">техникалық және кәсіптік білім ұйымдарында оқитындар</th>
+                            <th scope="col">әскери қызмет ету қатарына шақырылғандар</th>
+                            <th scope="col">Қазақстан Республикасынан тыс жерге кеткендер</th>
+                            <th scope="col">бала күтімі бойынша демалыс</th>
+                            <th scope="col">Жұмыспен қамтылмағандар </th>
                             <th scope="col">Әрекет</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($jobs as $key => $job )
-                            <tr id={{ $job->id }}>
+                        @foreach ($bests as $key => $best )
+                            <tr id={{ $best->id }}>
                                 <td scope="row">{{ ++$key }}</td>
-                                <td scope="row">{{ $job->code }}</td>
-                                <td scope="row">{{ $job->name }}</td>
-                                <td scope="row">{{ $job->grad }}</td>
-                                <td scope="row">{{ $job->group }}</td>
+                                <td scope="row">{{ $best->name }}</td>
+                                <td scope="row">{{ $best->code }}</td>
+                                <td scope="row">{{ $best->end_year }}</td>
+                                <td scope="row">{{ $best->best }}</td>
+                                <td scope="row">{{ $best->business }}</td>
+                                <td scope="row">{{ $best->study }}</td>
+                                <td scope="row">{{ $best->tech }}</td>
+                                <td scope="row">{{ $best->army }}</td>
+                                <td scope="row">{{ $best->abroad }}</td>
+                                <td scope="row">{{ $best->child }}</td>
+                                <td scope="row">{{ $best->work }}</td>
                                 <td scope="row"> 
                                     <div class="row">
                                         <div class="col-sm-12 text-center">
-                                            <button id="del" value="{{ $job->id }}" class="btn btn-danger btn-md" onclick="deletejob({{ $job->id }})">Жою</button>
+                                            <button id="del" value="{{ $best->id }}" class="btn btn-danger btn-md" onclick="deletebest({{ $best->id }})">Жою</button>
                                          </div>
                                     </div>
                                 </td>
@@ -59,9 +75,10 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
             <br/>
             <button class="btn btn-primary" type="submit">
-                <a class="text-white" href="{{ route('jobs.insert') }}">Жұмыс орындарының кодтарын енгізу</a>
+                <a class="text-white" href="{{ route('bests.insert') }}">Үздік түлектердің жұмысқа орналасуы енгізу</a>
             </button>
         </div>
 
@@ -75,13 +92,13 @@
     </div>  
     @endguest
     <script>
-        let deletejob = (id) => {
+        let deletebest = (id) => {
             if (confirm('Жою?')) {
                 $.ajax({
                     type: "POST",
-                    url: "/second/jobs/delete",
+                    url: "/second/bests/delete",
                     headers: {"X-CSRF-TOKEN": "{{ csrf_token() }}"},
-                    data: {job_id: id},
+                    data: {best_id: id},
                     success: status_code => {
                         if (status = 200) {
                             window.location.reload(true);

@@ -70,4 +70,9 @@ Route::middleware(['moldir'])->prefix('second')->group(function () {
     Route::post('/jobs/store', 'JobController@store') -> name('jobs.store');
     Route::post('/jobs/delete', 'JobController@delete');
 
+    Route::get('/bests', 'BestController@index') -> name('bests');
+    Route::get('/bests/insert', 'BestController@get_insert_view') -> name('bests.insert');
+    Route::post('/bests/store', 'BestController@insert') -> name('bests.store');
+    Route::post('/bests/delete', 'BestController@delete');
+
 });

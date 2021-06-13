@@ -102,6 +102,9 @@
                 <li style="display: inline-block;">
                     <a style="font-family: 'Pacifico', cursive;" href="{{ route('jobs') }}" class="text-white text-2xl p-3 no-underline hover:underline ">Жұмыс орындарының кодтары</a>
                 </li>
+                <li style="display: inline-block;">
+                    <a style="font-family: 'Pacifico', cursive;" href="{{ route('bests') }}" class="text-white text-2xl p-3 no-underline hover:underline ">Үздік түлектердің жұмысқа орналасуы</a>
+                </li>
                 {{-- <li style="display: inline-block;">
                     <a href="{{ route('second.teacher') }}" class="text-white text-2xl p-3 no-underline hover:underline ">Оқытушылар туралы мәлімет</a>
                 </li>
